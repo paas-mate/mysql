@@ -7,8 +7,5 @@ RUN apt-get update && \
     apt-get clean
 
 RUN mkdir /opt/mysql && \
-    chmod 777 /opt/mysql && \
-    sed -i 's/^user.*/user = root/' /etc/mysql/mysql.conf.d/mysqld.cnf
-RUN ls -ltr /opt/mysql && \
-    ls -ltr /opt && \
-    /usr/sbin/mysqld --initialize-insecure --user=root --basedir=/opt/mysql --datadir=/opt/mysql/data
+    chown -R mysql:mysql /opt/mysql
+RUN mysqld --initialize-insecure --basedir=/opt/mysql --datadir=/opt/mysql/data
